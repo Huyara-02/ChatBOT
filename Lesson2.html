@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+    <!-- In this lesson, we are going to learn about components and props in react.js-->
+  </head>
+  <body>
+    
+    <div class="js-container"></div> 
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+
+      function ChatInput(){
+        const [inputText, setInputText] = React.useState('');
+        function saveInputText(event){
+          setInputText(event.target.value);
+        }
+        function sendMessage(){
+          console.log(inputText);
+        }
+        {/* this is a component*/}
+        return(
+          <>
+          <input placeholder = 
+            "Send a message to chatBot" size  = "30" 
+            onChange = {saveInputText}
+            />
+            <button
+            onClick = {sendMessage}>send</button>
+          </>
+        );
+      }
+
+      function ChatMessage({message, sender}){
+        // const message = props.message;
+        // const sender = props.sender;
+        // if we are using if inside jsx, we cannot use normal if else, instead we are required to use guard operator.
+            return(
+              <div>
+                {sender === "robot" && <img src = "/Images/robot.png" width = "50"/>}
+                {message}
+                {sender === "user" && <img src = "/Images/user.png" width = "50"/>}
+              </div>
+          )
+      }
+
+      function ChatMessages(){
+
+        const array = React.useState(
+          // this is a state variable 
+          // React.useState() --> return two values, current state value and a function that updated the state.
+        [{
+          message : 'Hello ChatBot',
+          sender : 'user',
+          id : crypto.randomUUID()
+
+          },
+          {
+            message : 'Hi Welcome to ChatBot',
+            sender : 'robot',
+            id : crypto.randomUUID()
+
+
+          },
+          {
+            message : "Can you get me today's date?",
+            sender : "user",
+            id : crypto.randomUUID()
+
+
+          },
+          {
+            message : "Today's date is 20th of August",
+            sender : "robot",
+            id : crypto.randomUUID()
+
+
+          },
+          {
+            message : "Hello tell me how state works",
+            sender : "user",
+            id : crypto.randomUUID()
+          }
+
+      ]);
+      const [chatMessages , setChatMessages] = array;
+      // this is called as array destructing, 
+      
+      //const chatMessages = array[0];
+
+      // this is the current state of chatMessages array
+
+      // const setChatMessages = array[1];
+      // this is the updated array
+
+      function sendMessage(){
+        setChatMessages([
+          ...chatMessages,
+          {
+          message : "test",
+          sender : "user",
+          id : crypto.randomUUID()
+          }
+        ])
+        // chatMessages.push({
+        //   message : 'Test',
+        //   sender : 'user',
+        //   id : crypto.randomUUID(),
+        // })
+        // console.log(chatMessages)
+
+      }
+        return (
+          <>
+          <button onClick = {sendMessage}>Send Message</button>
+          {/* In react Event handlers are written with camelCasing*/}
+
+        {chatMessages.map((chatMessage)=> {
+          {/**/}
+        return(
+          <ChatMessage
+          message = {chatMessage.message}
+          sender = {chatMessage.sender} 
+          key = {chatMessage.id}
+          />
+          )
+
+        })}
+        </>
+        )
+      }
+
+      function App(){
+      return(
+        <>
+        <ChatInput/>
+        <ChatMessages/>
+        </>
+      )
+      }
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App/>);
+    </script>
+  </body>
+</html>

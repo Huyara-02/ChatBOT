@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    
+    <div class="js-container"></div> 
+    <div class = "js-container2"></div>
+    <!-- This is a container that will be used by react to store the elements.-->
+    
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+ // a div is used to group mulitple elements together and since we are going to render multiple elements together, hence we use a div so that we group multiple elements together. 
+     
+      const div = 
+      /* div will be used to store mulitple elements together or so to say, to group multiple elements together. 
+      We can also make use of fragments instead of div to avoid the extra spaces that div uses due to which we might face alignmenet issues.
+      While we use div, we do not need to make use of extra variables.
+      */
+      (<div>
+        <button>Hello</button>
+        <p>Hi this is a paragraph</p>
+      </div>
+    )
+
+    function NewComponent({value}){
+      return(
+        <>
+        <p>{value}</p>
+        </>
+      )
+    }
+
+    {/* like here we have made multiple divs together and combined them with a single bigger div, we can consider the smaller divs as features of apps and the app variable as a whole function that will run and combine these divs together.
+    */}
+
+    const div2 = (
+      <div>
+      <button>Phone</button>
+      <p>Second paragraph</p>
+      </div>
+    )
+
+    const app = (
+      <div>
+        {div}
+        {/* here we are inserting the features as values in form of variables*/}
+        {div2}
+        <NewComponent value = "Text"/>
+      </div>
+    )
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(app);
+    </script>
+  </body>
+</html>
