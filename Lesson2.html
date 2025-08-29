@@ -19,6 +19,12 @@
         function saveInputText(event){
           setInputText(event.target.value);
         }
+
+        // event → the object React (or the browser) gives you whenever something happens (like typing, clicking). It contains all the details of that action.
+        // event.target → the actual element where the event happened.
+        // In your case: the <input> box.
+        // event.target.value → the current value inside that element.
+        // In your case: the text the user typed in the input box.
         function sendMessage(){
           console.log(inputText);
         }
